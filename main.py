@@ -31,10 +31,12 @@ def rectangle(start, end):
 
 def triangle(start, end):
     #Función elaborada por Víctor Mancera
+
     pass  # TODO
 
 def tap(x, y):
     "Store starting point or draw shape."
+
     start = state['start']
 
     if start is None:
