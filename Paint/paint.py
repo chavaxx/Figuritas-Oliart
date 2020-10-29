@@ -39,10 +39,21 @@ def rectangle(start, end):
 
 def triangle(start, end):
     #Función elaborada por Víctor Mancera
-    pass  # TODO
+    up() #Alzamos el pincel (Es decir, dejamos de dibujar)
+    goto(start.x, start.y) #Ubicamos el pincel en la ubicación que selecciona el usario con su mouse
+    down() #Lo colocamos en el canvas
+    begin_fill() #Establecemos que empezaremos a dibujar
+
+    forward(start.y - end.y) ##Iremos a la posición en y de ambos puntos
+    left(90) #Giraremos 90° grados
+    forward(start.x - end.x) #Iremos a la posicion en x entre ambos puntps
+
+    end_fill() #Finalizamos el llenado
+
 
 def tap(x, y):
     "Store starting point or draw shape."
+
     start = state['start']
 
     if start is None:
