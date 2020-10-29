@@ -10,15 +10,20 @@ Exercises:
 
 """
 
+#Agregamos librerías
 from random import *
 from turtle import *
 from freegames import path
 
+#Se declara la imagen
 car = path('car.gif')
+#Creamos nuestro tablero
 tiles = list(range(32)) * 2
 state = {'mark': None}
+#Se inicializa el tablero con las fichas escondidas
 hide = [True] * 64
 
+#Función que dibuja los cuadros
 def square(x, y):
     "Draw white square with black outline at (x, y)."
     up()
@@ -31,51 +36,62 @@ def square(x, y):
         left(90)
     end_fill()
 
+#Se convierten las coordinadas en los índices de cada tile
 def index(x, y):
     "Convert (x, y) coordinates to tiles index."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
+#Se convierte cada tile contado en una coordenada
+#Es decir que a cada cuadrito se le asigna una coordenada
 def xy(count):
     "Convert tiles count to (x, y) coordinates."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
+'''Función que actualiza la marca y el estado de la tile 
+(!hidden o hidden) dependiendo del tap'''
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
     spot = index(x, y)
     mark = state['mark']
-
+    
+    #En caso de que las tiles no tengan la misma marca, se dejan escondidas
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
+    #Si tienen la misma marca, se enseña la parte de a imagen de los tailes
     else:
         hide[spot] = False
         hide[mark] = False
+        #Se le quita la marca
         state['mark'] = None
 
+#Función que dibuja los tiles de la imagen
 def draw():
     "Draw image and tiles."
     clear()
     goto(0, 0)
     shape(car)
     stamp()
-
+    
     for count in range(64):
         if hide[count]:
             x, y = xy(count)
             square(x, y)
-
+    #Se define su mark con la que ya tiene
     mark = state['mark']
-
+    
+    #En caso de no tener marca y esté oculto el tile, se le asigna una mark
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
         goto(x + 2, y)
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
-
+    #Se actualiza
     update()
     ontimer(draw, 100)
-
-shuffle(tiles)
+    
+#Se llaman a las funciones (también de librerías)
+shuffle(tiles) 
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
