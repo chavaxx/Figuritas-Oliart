@@ -130,7 +130,8 @@ def move():
 
         up()
         goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+        #se modifica tambien el color de los fantasmas
+        dot(20, 'blue')
 
     update()
 
@@ -138,7 +139,7 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    ontimer(move, 30)
 
 def change(x, y):
     "Change pacman aim if valid."
