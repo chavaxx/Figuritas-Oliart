@@ -2,6 +2,12 @@ from turtle import *
 from freegames import vector
 import math #Librería para cálculos matemáticos
 
+#Elaborado por:
+"""Salvador Alejandro Gaytán Ibañez A01730311
+Ituriel Mejia Garita A01730875
+Myroslava Sánchez Andrade A01730712
+Víctor Alfonso Mancera Osorio A01733749"""
+
 #Función que dibuja una línea
 def line(start, end):
     up() #Levantar lápiz (no dibujar)
