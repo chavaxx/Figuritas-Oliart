@@ -31,22 +31,20 @@ def circlee(start, end):
     begin_fill()
     circle(r)
     end_fill()
-    pass  # TODO
 
 def rectangle(start, end):
     "Draw rectangle from start to end."
     pass  # TODO
 
 def triangle(start, end):
-    #Función elaborada por Víctor Mancera
     up() #Alzamos el pincel (Es decir, dejamos de dibujar)
     goto(start.x, start.y) #Ubicamos el pincel en la ubicación que selecciona el usario con su mouse
     down() #Lo colocamos en el canvas
-    begin_fill() #Establecemos que empezaremos a dibujar
+    begin_fill() #Establecemos que se rellenará la figura
 
-    forward(start.y - end.y) ##Iremos a la posición en y de ambos puntos
-    left(90) #Giraremos 90° grados
-    forward(start.x - end.x) #Iremos a la posicion en x entre ambos puntps
+    goto(end.x,end.y) ##Iremos a la posición del segundo punto dado
+    goto(end.x,start.y) #Permanecerá en la coordenada x del segundo punto, pero irá a la coordenada Y del primero
+    goto(start.x, start.y) #Regresar a las coordenadas del primer punto
 
     end_fill() #Finalizamos el llenado
 
