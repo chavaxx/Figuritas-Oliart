@@ -1,5 +1,6 @@
 from turtle import *
 from freegames import vector
+import math
 
 def line(start, end):
     "Draw line from start to end."
@@ -21,8 +22,15 @@ def square(start, end):
 
     end_fill()
 
-def circle(start, end):
+def circlee(start, end):
     "Draw circle from start to end."
+    r=math.sqrt(((end.x-start.x)**2)+((end.y-start.y)**2))
+    up()
+    goto(start.x, (start.y-r))
+    down()
+    begin_fill()
+    circle(r)
+    end_fill()
     pass  # TODO
 
 def rectangle(start, end):
@@ -30,7 +38,6 @@ def rectangle(start, end):
     pass  # TODO
 
 def triangle(start, end):
-
     #Función elaborada por Víctor Mancera
     up() #Alzamos el pincel (Es decir, dejamos de dibujar)
     goto(start.x, start.y) #Ubicamos el pincel en la ubicación que selecciona el usario con su mouse
@@ -73,7 +80,7 @@ onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
-onkey(lambda: store('shape', circle), 'c')
+onkey(lambda: store('shape', circlee), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
 done()
