@@ -1,7 +1,9 @@
+#se importan las librerias necesarias para que el proyecto funcione
 from random import choice
 from turtle import *
 from freegames import floor, vector
-
+ 
+ #se inicializan las variables de estado, path, writer, aim, pacman y ghosts
 state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
@@ -71,9 +73,10 @@ def valid(point):
     return point.x % 20 == 0 or point.y % 20 == 0
 
 def world():
+	#se dibuja el tablero, modificando el color del background y el path
     "Draw world using path."
-    bgcolor('black')
-    path.color('blue')
+    bgcolor('red')
+    path.color('green')
 
     for index in range(len(tiles)):
         tile = tiles[index]
