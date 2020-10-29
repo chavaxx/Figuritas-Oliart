@@ -15,6 +15,7 @@ ghosts = [
     [vector(100, 160), vector(0, -5)],
     [vector(100, -160), vector(-5, 0)],
 ]
+#se crea el tablero
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -38,6 +39,7 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
+#funcion que dibuja un cuadrado utilizando el path en el punto x y y
 def square(x, y):
     "Draw square using path at (x, y)."
     path.up()
@@ -45,12 +47,15 @@ def square(x, y):
     path.down()
     path.begin_fill()
 
+    #ciclo for que da las dimensiones y parametros al tablero
     for count in range(4):
         path.forward(20)
         path.left(90)
 
     path.end_fill()
+    #terminar de llenar el tablero
 
+#funcion que regresa el desplazamiento del punto para el tablero
 def offset(point):
     "Return offset of point in tiles."
     x = (floor(point.x, 20) + 200) / 20
@@ -58,10 +63,12 @@ def offset(point):
     index = int(x + y * 20)
     return index
 
+#funcion que revisa si el punto que recibe como parametro en un punto valido dentro del tablero
 def valid(point):
     "Return True if point is valid in tiles."
     index = offset(point)
 
+    #si vale 0, no es un valor valido
     if tiles[index] == 0:
         return False
 
@@ -77,7 +84,7 @@ def world():
     "Draw world using path."
     bgcolor('red')
     path.color('green')
-
+    #ciclo for que dibuja el tablero
     for index in range(len(tiles)):
         tile = tiles[index]
 
@@ -85,12 +92,13 @@ def world():
             x = (index % 20) * 20 - 200
             y = 180 - (index // 20) * 20
             square(x, y)
-
+            #condicional que agrega los circulos en el juego que dan puntaje al jugador, de color blanco
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
+#funcion que controla el movimiento del pacman a base de inputs y el de los fantasmas a base de randoms y valores fijos
 def move():
     "Move pacman and all ghosts."
     writer.undo()
@@ -98,6 +106,7 @@ def move():
 
     clear()
 
+    #revisar que el jugador de un input valido para mover el personaje
     if valid(pacman + aim):
         pacman.move(aim)
 
@@ -111,18 +120,22 @@ def move():
         square(x, y)
 
     up()
+    #movimiento del pacman
     goto(pacman.x + 10, pacman.y + 10)
+    #definir el color de pacman
     dot(20, 'yellow')
 
+    #for que da el "AI" a los fantasmas
     for point, course in ghosts:
         if valid(point + course):
             point.move(course)
         else:
+        	#opciones de movimiento que se le dan a los fantasmas, regidos por el AI
             options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+                vector(10, 0),
+                vector(-10, 0),
+                vector(0, 10),
+                vector(0, -10),
             ]
             plan = choice(options)
             course.x = plan.x
@@ -135,18 +148,22 @@ def move():
 
     update()
 
+    #revisa por colision
     for point, course in ghosts:
         if abs(pacman - point) < 20:
             return
 
+    #determina la velocidad general del juego       
     ontimer(move, 30)
 
+#funcion que cambia la direccion del jugador en caso de un input valido
 def change(x, y):
     "Change pacman aim if valid."
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
 
+#inicializacion de funciones de la libreria turtle
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
@@ -154,10 +171,12 @@ writer.goto(160, 160)
 writer.color('white')
 writer.write(state['score'])
 listen()
+# pathing de los controles.
 onkey(lambda: change(5, 0), 'Right')
 onkey(lambda: change(-5, 0), 'Left')
 onkey(lambda: change(0, 5), 'Up')
 onkey(lambda: change(0, -5), 'Down')
+#ejecucion de las funciones principales del juego.
 world()
 move()
 done()
