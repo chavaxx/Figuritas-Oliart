@@ -1,4 +1,9 @@
-#se importan las librerias necesarias para que el proyecto funcione
+"""Salvador Alejandro Gaytán Ibañez A01730311
+Ituriel Mejia Garita A01730875
+Myroslava Sánchez Andrade A01730712
+Víctor Alfonso Mancera Osorio A01733749"""
+
+#se importan las librerias necesarias para que el proyecto funciones
 from random import choice
 from turtle import *
 from freegames import floor, vector
