@@ -23,6 +23,7 @@ state = {'mark': None}
 #Se inicializa el tablero con las fichas escondidas
 hide = [True] * 64
 numTaps=0
+tapsDestapados=0
 
 #Función que dibuja los cuadros
 def square(x, y):
@@ -55,6 +56,15 @@ def printTaps():
     numTaps=numTaps+1
     print("Number of taps: "+str(numTaps))
 
+#Función que verfifica si ha terminado de destapar todos los cuadros
+def terminado():
+    global tapsDestapados
+    tapsDestapados=tapsDestapados+1
+
+    #Cuando se termine se imprime en pantalla el mensaje
+    if(tapsDestapados==32):
+        print("Todos los cuadros se han destapado :D")
+
 '''Función que actualiza la marca y el estado de la tile 
 (!hidden o hidden) dependiendo del tap'''
 def tap(x, y):
@@ -71,6 +81,8 @@ def tap(x, y):
         hide[mark] = False
         #Se le quita la marca
         state['mark'] = None
+        #Se llama a la función terminado para verificar si ya se ha terminado el juego
+        terminado()
     #Llamamos a la función printTaps para que imprima los taps
     printTaps()
 
