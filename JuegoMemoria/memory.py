@@ -22,6 +22,7 @@ tiles = list(range(32)) * 2
 state = {'mark': None}
 #Se inicializa el tablero con las fichas escondidas
 hide = [True] * 64
+numTaps=0
 
 #Función que dibuja los cuadros
 def square(x, y):
@@ -47,6 +48,13 @@ def xy(count):
     "Convert tiles count to (x, y) coordinates."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
+#Creamos la función que imprime el número de taps
+def printTaps():
+    global numTaps
+    #Se le va sumando uno
+    numTaps=numTaps+1
+    print("Number of taps: "+str(numTaps))
+
 '''Función que actualiza la marca y el estado de la tile 
 (!hidden o hidden) dependiendo del tap'''
 def tap(x, y):
@@ -63,6 +71,8 @@ def tap(x, y):
         hide[mark] = False
         #Se le quita la marca
         state['mark'] = None
+    #Llamamos a la función printTaps para que imprima los taps
+    printTaps()
 
 #Función que dibuja los tiles de la imagen
 def draw():
