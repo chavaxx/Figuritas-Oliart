@@ -95,7 +95,10 @@ def draw():
         up()
         goto(x + 2, y)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        #Cambiamos el aliniamiento de nuestra marca
+        marca=f"{tiles[mark]:>2}"
+        #Se escribe en el tile
+        write(marca,font=('Arial', 30, 'normal'))
     #Se actualiza
     update()
     ontimer(draw, 100)
